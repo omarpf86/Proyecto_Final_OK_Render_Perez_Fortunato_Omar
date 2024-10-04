@@ -66,7 +66,7 @@ const storeConfig = {
 };
 
 app.use(cors({
-    origin: 'https://proyectofinalbackendperezfortunatoomar.onrender.com',
+    origin: 'https://proyecto-final-ok-render-perez-fortunato.onrender.com',
     credentials: true
 }))
 
