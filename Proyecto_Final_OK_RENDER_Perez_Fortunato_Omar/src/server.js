@@ -60,8 +60,8 @@ const storeConfig = {
     saveUninitialized: true,
     cookie: {
         maxAge: 300000,
-        secure: true,
-        sameSite: 'none'
+        secure: false,
+        sameSite: 'lax'
     }
 };
 
