@@ -1,0 +1,11 @@
+<h1>Ticket de Compra</h1>
+<p>Id de la compra: {{t._id}}</p>
+<p>Code: {{t.code}}</p>
+<p>Fecha de compra: {{t.purchase_datetime}}</p>
+<p>Cantidad: {{t.amount}}</p>
+<p>Email: {{t.purchaser}}</p>
+
+<br>
+<form action="/api/views/cart" method="get">
+    <button type="submit"> Volver </button>
+</form>

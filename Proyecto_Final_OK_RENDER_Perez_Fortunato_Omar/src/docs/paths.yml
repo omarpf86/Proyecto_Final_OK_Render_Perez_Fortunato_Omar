@@ -1,0 +1,558 @@
+paths: 
+  /api/products/{id}:
+    get:
+      tags:
+      - product
+      summary: Encuentra  producto por id.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: id del producto a buscar
+          schema:
+            type: string
+      responses:
+        200:
+          description: Producto encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product/estructuraSalidaProducto' 
+        404:
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/error/error_404'            
+    put:
+      tags:
+      - product
+      summary: Actualizar datos de producto.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: id del producto a actualizar.
+          schema:
+            type: string 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/product'
+      responses:
+        200:
+          description: Producto actualizado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product/estructuraSalidaProducto'  
+        400:
+          description: El dato ingresado es incorrecto.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_400'
+    delete:
+      tags:
+      - product
+      summary: Borrar datos de producto.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: id del producto a borrar.
+          schema:
+            type: string  
+      responses:
+        200:
+          description: Producto borrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product/estructuraSalidaProducto' 
+        404:
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/error/error_404'        
+  /api/products:
+    get:
+      tags:
+      - product
+      summary: Trae una lista de productos.
+      responses:
+        200:
+          description: producto encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product/getAll'                             
+    post:
+      tags:
+      - product
+      summary: Crear un producto.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/product'
+      responses:
+        200:
+          description: Producto creado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product/estructuraSalidaProducto'   
+        400:
+          description: El dato ingresado es incorrecto.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_400'        
+  /api/users/register:
+    post:  
+      tags:
+      - user
+      summary: Crear un usuario.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/user'
+        required: true
+      responses:
+        200:
+          description: Registro exitoso del usuario.
+          content:
+            application/json:
+              schema:
+                type: array
+                $ref: '#/components/schemas/users/currentRegisterLogin'       
+        404:
+          description: Perfiles no encontrados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_404'         
+  /api/users/login:
+    post:  
+      tags:
+      - user
+      summary: Loguea.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/login'
+        required: true
+      responses:
+        200:
+          description: El usuario se logueo correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users/currentRegisterLogin'
+        201:
+          description: El administrador se logueo correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users/adminCurrentRegisterLogin'         
+        401:
+          description: No autorizado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_401'     
+  /api/users:
+    get:
+      tags:
+      - user  
+      summary: Permite obtener todos los usuarios registrados.           
+      responses:
+        200:
+          description: Se obtuvo todo los usuarios de la base de datos.
+          content:
+            application/json:
+              schema:
+                type: array
+                $ref: '#/components/schemas/users/getAll'
+        404:
+          description: Perfil no encontrados.
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/error/error_404'        
+  /api/users/roleChanged/{id}:
+    put:
+      tags:
+      - user
+      summary: Cambia el rol del usuario a premium.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: id del usuario.
+          schema:
+            type: string 
+      responses:
+        200:
+          description: Cambio de rol realizado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users/estructuraSalidaUsuario'  
+        400:
+          description: El dato ingresado es incorrecto.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_400'
+  /api/users/logout:
+    post:  
+      tags:
+      - user
+      summary: Cierra la sesión y redirección a la página de login.
+      responses:
+        302:
+          description: Redirección a la página de login.
+          headers:
+            Location:
+              description: /api/views/login
+              schema:
+                type: string
+  /api/users/current:
+    get:
+      tags:
+      - user
+      summary: Muestra el perfil del usuario logueado.
+      responses:
+        200:
+          description: Perfil del usuario.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users/currentRegisterLogin' 
+        404:
+          description: Perfil no encontrado
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/error/error_404' 
+        400:
+          description: El dato ingresado es incorrecto.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_400' 
+  /api/users/inactive:
+    get:
+      tags:
+      - user
+      summary: Muestra los usuario inactivos por dos días.
+      responses:
+        200:
+          description: Perfil del usuario.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users/estructuraSalidaUsuario' 
+        404:
+          description: Perfil no encontrado
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/error/error_404' 
+  /api/users/inactiveDelete: 
+    delete:
+      tags:
+      - user
+      summary: Elimina de la base de datos los usuario inactivos por dos días.
+      responses:
+        200:
+          description: Perfil del usuario.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users/estructuraSalidaUsuario' 
+        404:
+          description: Perfil no encontrado
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/error/error_404'               
+  /api/users/delete/{id}:
+    delete:
+      tags:
+      - user
+      summary: Borra los datos del usuario.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: id del usuario.
+          schema:
+            type: string  
+      responses:
+        200:
+          description: Usuario borrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users/estructuraSalidaUsuario'
+        404:
+          description: Usuario no encontrado.
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/error/error_404' 
+        400:
+          description: El dato ingresado es incorrecto.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_400'            
+  /api/carts:
+    post:
+      tags:
+      - cart  
+      summary: Crea el carrito            
+      responses:
+        200:
+          description: Carrito creado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart/estructuraSalidaCarrito'
+        400:
+          description: El dato ingresado es incorrecto.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_400'
+    get:
+      tags:
+      - cart  
+      summary: Permite obtener todos los carritos creados           
+      responses:
+        200:
+          description: Se obtuvo todo los carritos de la base de datos.
+          content:
+            application/json:
+              schema:
+                type: array.
+                $ref: '#/components/schemas/cart/getAll' 
+  /api/carts/{cid}:
+    get:
+      tags:
+      - cart
+      summary: Encuentra  carrito por id.
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: id del carrito a buscar.
+          schema:
+            type: string             
+      responses:
+        200:
+          description: Se obtuvo el carrito de la base de datos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart/estructuraSalidaCarrito'
+        404:
+          description: Carrito no encontrado
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/error/error_404'
+    delete:
+      tags:
+      - cart
+      summary: Limpia el carrito de productos.
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: id del carrito a limpiar
+          schema:
+            type: string             
+      responses:
+        200:
+          description: Carrito encontrado con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart/estructuraSalidaCarrito'
+        404:
+          description: Carrito no encontrado
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/error/error_404'  
+  /api/carts/{cid}/products/{id}:   
+    post:
+      tags:
+      - cart
+      summary: Actualiza el valor de cantidad de un producto en un carrito determinado
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: id del carrito a buscar.
+          schema:
+            type: string 
+        - in: path
+          name: id
+          required: true
+          description: id del producto a actualizar.
+          schema:
+            type: string                
+      responses:
+        200:
+          description: Se actualizao la cantidad de un producto determinado en un  carrito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart/estructuraSalidaCarrito'
+        404:
+          description: Carrito no encontrado
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/error/error_404' 
+        400:
+          description: El dato ingresado es incorrecto.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_400'         
+    put:
+      tags:
+      - cart
+      summary: Actualiza la cantidad de un producto segun id en un carrito a cualquier valor que el usuario ingrese.
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: id del carrito a buscar.
+          schema:
+            type: string 
+        - in: path
+          name: id
+          required: true
+          description: id del producto a actualizar.
+          schema:
+            type: string 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/cartUpdateProdQuantity'     
+      responses:
+        200:
+          description: Se actualizao la cantidad de un producto determinado en un  carrito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart/estructuraSalidaCarrito'
+        404:
+          description: Carrito no encontrado
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/error/error_404' 
+        400:
+          description: El dato ingresado es incorrecto.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_400'                              
+    delete:                
+      tags:
+      - cart
+      summary: Borra productos segun id del carrito
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: id del carrito a buscar.
+          schema:
+            type: string 
+        - in: path
+          name: id
+          required: true
+          description: id del producto a borrar.
+          schema:
+            type: string                
+      responses:
+        200:
+          description: Producto borrado con éxito de un carrito determinado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart/estructuraSalidaCarrito'
+        404:
+          description: Carrito no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_404' 
+        400:
+          description: El dato ingresado es incorrecto.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_400'            
+  /api/carts/delete/{cid}:
+    delete:  
+      tags:
+      - cart
+      summary: Borra el carrito según id.
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: id del carrito a buscar.
+          schema:
+            type: string               
+      responses:
+        200:
+          description: Carrito eliminado con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart/estructuraSalidaCarrito'
+        404:
+          description: Carrito no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_404' 
+        400:
+          description: El dato ingresado es incorrecto.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_400'  
+  /api/tickets/purchase:  
+     post:
+      tags:
+      - ticket  
+      summary: Crea el ticket            
+      responses:
+        200:
+          description: Tiket de compra creado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ticket/estructuraSalidaTicket' 
+        404:
+          description: Ticket no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error/error_404'                       

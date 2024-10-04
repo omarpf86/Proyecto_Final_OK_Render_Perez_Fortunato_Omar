@@ -1,0 +1,43 @@
+<h1>LOGIN</h1>
+
+<form action="/api/users/login" method="post">
+    Email<input type="text" name="email" id="" />
+    Password<input type="password" name="password" id="" />
+    <input type="submit" value="LOGIN">
+</form>
+
+<h2>NEW USER?</h2>
+<button onclick="location.href='/api/views/register'">GO REGISTER</button> 
+
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const params = new URLSearchParams(window.location.search);
+        const message = params.get('message');
+
+        if (message) {
+            Toastify({
+                text: message,
+                duration: 15000,
+                close: true,
+                gravity: "top",
+                position: "center",
+                style: { background: "linear-gradient(to right, #00b09b, #96c93d)" },
+            }).showToast();
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,76 @@
+<h1>Carrito Nº </h1>
+<p id="cartIdentification"></p>
+
+<script>
+    // Obtener el cartId desde la URL 
+    const urlParams = new URLSearchParams(window.location.search);
+    const cartId = urlParams.get('cartId');
+    if (cartId) {
+        document.getElementById('cartIdentification').textContent = cartId;
+    }
+</script>
+
+<br>
+
+<h3>Lista de productos disponibles</h3>
+<form id="displayList">
+    <button id="display">Desplegar lista de Productos</button>
+</form> 
+<p id="listProducts"></p>
+
+
+<div>
+    
+<h3>Productos agregados</h3>
+    <p id="listAddProducts"></p>
+    <form id="form1">
+     <label>Id de producto:</label><input type="text" name="idP" id="idP"><br>
+     <input type="submit" value="SEND">
+    </form>   
+</div>
+
+<br>
+<div>
+  <form id="form2">
+    <label>Ingrese el Id del producto que desea borrar:</label>
+    <input type="text" name="idProductDelete" id="idProductDelete">
+    <button type="submit" id="delete">Borrar el producto</button> 
+ </form>
+</div>
+
+<br>
+<div>
+    <form id="cleanCart">
+        <button  id="CleanCart">Limpiar Carrito</button>
+    </form>
+</div>
+
+<br>
+
+
+<div>
+    <form id="formComprar">
+        <button id="Comprar Carrito">Comprar</button>
+    </form>
+</div>
+
+<br>
+
+<form action="/messages" method="get">
+    <button type="submit"> Ir a Chat </button>
+</form>
+
+<br>
+
+
+
+<br>
+<form action="/api/users/logout" method="post">
+    <button type="submit"> LOGOUT </button>
+</form>
+
+
+<p id="prod1"></p>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/public/indexcarts.js"></script>

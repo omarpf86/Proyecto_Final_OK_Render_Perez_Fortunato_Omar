@@ -1,0 +1,11 @@
+<h1>Perfil del Usuario</h1>
+<p>Nombre: {{user.nombre}}</p>
+<p>Apellido: {{user.apellido}}</p>
+<p>Email: {{user.email}}</p>
+<p>Edad: {{user.edad}}</p>
+<p>Id de carrito: {{user.cid}}</p>
+
+<br>
+<form action="/api/views/cart" method="get">
+    <button type="submit"> Volver </button>
+</form>

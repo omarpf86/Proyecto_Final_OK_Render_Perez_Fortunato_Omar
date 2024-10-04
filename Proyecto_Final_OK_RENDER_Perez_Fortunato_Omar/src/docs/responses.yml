@@ -1,0 +1,441 @@
+components:
+  schemas:
+    product:    
+      estructuraSalidaProducto: 
+        type: object
+        properties:
+          status: 
+            type: number
+            description: 200
+          message:
+            type: string
+            description:  "Operation carried out successfully"
+          data:
+            type: object 
+            properties: 
+              name:
+                type: string
+                description: Nombre del producto.
+              description:
+                type: string
+                description: Especificaciones del producto.
+              code:
+                type: number
+                description: Número para clasificar e identificar productos.
+              price:
+                type: number
+                description: Valor del producto.
+              status:
+                type: string
+                description: toma valor verdadero o falso.
+              stock:
+                type: number
+                description: Número de unidades en déposito.
+              category:
+                type: string
+                description: Rubro en el que se encuentra el producto.
+              owner:
+                type: string
+                description: Autor en la creación del producto( usuario premiun o administrador)  
+      getAll:
+        type: object
+        properties:
+          status: 
+            type: number
+            description: 200
+          message:
+            type: string
+            description:  "Operation carried out successfully"
+          data:
+            type: object
+            properties:
+              status: 
+                type: number
+                description: 201 
+              message:
+                type: string
+                description:  "Status (201): Products found"
+              payload:
+                type: array
+                items:     
+                  properties:    
+                    name:
+                      type: string
+                      description: Nombre del producto.
+                    description:
+                      type: string
+                      description: Especificaciones del producto.
+                    code:
+                      type: number
+                      description: Número para clasificar e identificar productos.
+                    price:
+                      type: number
+                      description: Valor del producto.
+                    status:
+                      type: string
+                      description: toma valor verdadero o falso.
+                    stock:
+                      type: number
+                      description: Número de unidades en déposito.
+                    category:
+                      type: string
+                      description: Rubro en el que se encuentra el producto.           
+    cart: 
+      estructuraSalidaCarrito:
+        type: object
+        properties:
+          status: 
+            type: number
+            description: 200
+          message:
+            type: string
+            description:  "Operation carried out successfully"
+          data:  
+            type: object
+            properties: 
+              id:
+                type: string
+                description: Identificación del carrito creado.
+              products:
+                type: array
+                items:
+                  properties:
+                    product:
+                      type: string
+                      description: Id del producto.
+                    quantity:
+                      type: number
+                      description: Cantidad de productos adquiridos.
+      getAll:
+        type: object
+        properties:
+          status: 
+            type: number
+            description: 200
+          message:
+            type: string
+            description:  "Operation carried out successfully"
+          data:  
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Identificación del carrito creado.
+                products:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product:
+                        type: string
+                        description: Id del producto.
+                      quantity:
+                        type: number
+                        description: Cantidad de productos adquiridos.
+      addProdToCart:
+        type: object
+        properties:
+          id:
+            type: string
+            description: Identificación del carrito creado.
+          products:
+            type: array
+            items:
+              properties:
+                product:
+                  type: string
+                  description: Id del producto.
+                quantity:
+                  type: number
+                  description: Cantidad de productos adquiridos.
+      updateProdQuantityToCart:
+        type: object
+        properties:
+          id:
+            type: string
+            description: Identificación del carrito creado.
+          products:
+            type: array
+            items:
+              properties:
+                product:
+                  type: string
+                  description: Id del producto.
+                quantity:
+                  type: number
+                  description: Cantidad de productos adquiridos.
+      clearCart: 
+        type: object
+        properties:
+          id:
+            type: string
+            description: Identificación del carrito creado.
+          products:
+            type: array           
+            description: Array de productos que contiene objetos con el id de producto y la cantidad.
+            items:
+              properties:
+                product:
+                quantity:
+      removeProdToCart: 
+        type: object
+        properties:
+          id:
+            type: string
+            description: Identificación del carrito .
+          products:
+            type: array
+            items:
+              properties:
+                product:
+                  type: string
+                  description: Id del producto a borrar.
+                quantity:
+                  type: number
+                  description: Cantidad de productos a borrar.    
+      deleteCart:
+        create:
+        type: object
+        properties:
+          id:
+            type: string
+            description: Identificación del carrito creado eliminado.
+          products:
+            type: array
+            description: Array vacio que contendra objetos con el id y cantidad de producto.                 
+            items:
+              properties:
+                product:
+                  type: string
+                  description: Id del producto a borrar.
+                quantity:
+                  type: number
+                  description: Cantidad de productos a borrar.
+    users: 
+      estructuraSalidaUsuario:
+        type: object
+        properties:
+          status: 
+            type: number
+            description: 200
+          message:
+            type: string
+            description:  "Operation carried out successfully"
+          data:  
+            type: object
+            properties: 
+              first_name:
+                type: string
+                description: Nombre del usuaro.
+              last_name:
+                type: string
+                description: Apellido del usuario.
+              email:
+                type: string
+                description: Email del usuario.  
+              age:
+                type: string
+                description: Email del usuario. 
+              password:
+                type: string
+                description: Contraseña.
+              role:
+                type: string
+                description: Rol del usuario. 
+              lastConnection:
+                type: date
+                description: Fecha y hora de la última conexión del usuario. 
+              isGithub: 
+                type: Boolean,
+                description: Adopta el valor true o false si el usuario se registra o no con gitHub.
+              cart:  
+                type: Object Id 
+                description: Identificación del carrito asociado al usuario.
+      currentRegisterLogin:
+        type: object
+        properties:
+          status: 
+            type: number
+            description: 200
+          message:
+            type: string
+            description:  "Operation carried out successfully"
+          data:  
+            type: object
+            properties: 
+              first_name:
+                type: string
+                description: Nombre del usuaro.
+              last_name:
+                type: string
+                description: Apellido del usuario.
+              email:
+                type: string
+                description: Email del usuario.  
+              age:
+                type: string
+                description: Email del usuario. 
+              role:
+                type: string
+                description: Rol del usuario.  
+              cid:
+                type: string
+                description: Id del carrito asociado al usuario.
+      adminCurrentRegisterLogin:
+        type: object
+        properties:
+          status: 
+            type: number
+            description: 200
+          message:
+            type: string
+            description:  "Operation carried out successfully"
+          data:  
+            type: object
+            properties: 
+              first_name:
+                type: string
+                description: Nombre del usuaro.
+              last_name:
+                type: string
+                description: Apellido del usuario.
+              email:
+                type: string
+                description: Email del usuario.  
+              age:
+                type: string
+                description: Email del usuario. 
+              password:
+                type: string
+                description: Contraseña.
+              role:
+                type: string
+                description: Rol del usuario.
+              cart:
+                type: object
+                properties: 
+                  id:
+                    type: string
+                    description: Identificación del carrito asociado al usuario 
+                  products:
+                    type: array
+                    description: Lista de productos en el carrito.
+                    items:
+                      type: object
+                      properties:
+                          product:
+                            type: string
+                            description: ID del producto.
+                          quantity:
+                            type: integer
+                            description: Cantidad del producto.  
+              lastConnection:
+                type: date
+                description: Fecha y hora de la última conexión del usuario. 
+              isGithub: 
+                type: boolean
+                description: Adopta el valor true o false considerando si el usuario se registra o no con gitHub. 
+      getAll:
+        type: object
+        properties:
+          status: 
+            type: number
+            description: 200
+          message:
+            type: string
+            description:  "Operation carried out successfully"
+          data:  
+            type: array
+            items:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: Nombre del usuario.
+                email:
+                  type: string
+                  description: Email del usuario.
+                role:
+                  type: string
+                  description: Rol del usuario.
+    ticket:
+      estructuraSalidaTicket:
+        type: object
+        properties:
+          status: 
+            type: number
+            description: 200
+          message:
+            type: string
+            description:  "Operation carried out successfully"
+          data:
+            type: object 
+            properties: 
+              code:
+                type: string
+                description: Identificación de la compra.
+              purchaser_datetime:
+                type: string
+                description: Fecha de la compra.
+              amount:
+                type: number
+                description: Monto de la compra.
+              list:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Nombre del producto comprado.
+                    selectedQuantity::
+                        type: number
+                        description: Cantidad del producto comprado. 
+                    price:
+                      type: number
+                      description: Precio del producto comprado.     
+              purchaser:
+                type: string
+                description: email del comprador
+              id: 
+                type: string
+                description: Identificación del tiket de compra.    
+    error:
+      error_404: 
+        type: object
+        properties:
+          status:
+            type: number
+            description: 404 
+          message:
+            type: string
+            description: "Not found"
+          data:
+            type: string
+            description: Dato o parametro que genera el error.  
+      error_400: 
+        type: object
+        properties:
+          status:
+            type: number
+            description: 400 
+          message:
+            type: string
+            description: "Bad Request"
+          data:
+            type: string
+            description: Dato o parametro que genera el error. 
+      error_401: 
+        type: object
+        properties:
+          status:
+            type: number
+            description: 401 
+          message:
+            type: string
+            description: "The request requires user authentication."
+          data:
+            type: string
+            description: Dato o parametro que genera el error.                                        

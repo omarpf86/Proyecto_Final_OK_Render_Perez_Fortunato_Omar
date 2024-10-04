@@ -1,0 +1,97 @@
+components:
+  parameters:
+    schemas:
+      product:
+        type: object
+        required:
+          - name
+          - description
+          - code
+          - price
+          - status
+          - stock
+          - category
+        properties:
+          name:
+            type: string
+            description: Nombre del producto
+            example: ¡Pizzas!
+          description:
+            type: string
+            description: Especificaciones del producto.
+            example: Extra queso
+          code:
+            type: number
+            description: Número para clasificar e identificar productos.
+            example: 20325
+          price:
+            type: number
+            description: Valor del producto en pesos.
+            example: 2345
+          status:
+            type: string
+            description: Toma valor verdadero o falso.
+            example: true
+          stock:
+            type: number
+            description: Número de unidades del producto en déposito.
+            example: 340
+          category:
+            type: string
+            description: Rubro en el que se encuentra el producto.
+            example: Alimentos
+      user:
+        type: object
+        required:
+          - first_name
+          - last_name
+          - email
+          - age
+          - password
+        properties:
+          first_name:
+            type: string
+            descrition: Nombres del usuario
+            example: Lorena o Mariana Cecilia
+          last_name:
+            type: string
+            descrition: Apellido del usuario
+            example: Manchini   
+          email:
+            type: string
+            description: Dirección de correo del usuario
+            example: xxx@mail.com
+          age:
+            type: string
+            description: Edad del usuario
+            example: 28
+          password:
+            type: string
+            description: Clave del usuario.
+      login:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            descrition: Correo del usuario.
+            example: xxx@mail.com
+          password:
+            type: string
+            descrition: Clave del usuario
+      cartUpdateProdQuantity:
+        type: object
+        required:
+          - quantity
+        properties:
+          quantity:
+            type: number
+            descrition: Numero de unidades de un producto
+            example: 5
+            
+          
+        
+            
+                  
